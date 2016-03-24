@@ -18,6 +18,10 @@
 
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
+// Include "use strict";
+
+"use strict";
+
 var pizzaIngredients = {};
 pizzaIngredients.meats = [
     "Pepperoni",
@@ -451,14 +455,22 @@ var resizePizzas = function (size) {
     }
 
     // Iterates through pizza elements on the page and changes their widths
-    // Change querySelectorAll for getElementsByClassName
+    
+
     function changePizzaSizes(size) {
-        for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
-            var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size);
-            var newwidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-            document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
+        var i = 0;
+        //declare randomPizzaContainer variable outside the loop because it repeats
+        // Change querySelectorAll for getElementsByClassName
+        var container = document.getElementsByClassName("randomPizzaContainer");
+        var dx = determineDx(container[i], size);
+        var newwidth = (container[i].offsetWidth + dx) + 'px';
+
+        for (; i < container.length; i++) {
+            container[i].style.width = newwidth;
         }
     }
+
+
 
     changePizzaSizes(size);
 
@@ -472,9 +484,11 @@ var resizePizzas = function (size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-//Change getElementById
+
+// Declare pizzasDiv outside the loop
+// Change querySelectorAll getElementById
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-    var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -508,11 +522,11 @@ function updatePositions() {
 
     //remove and create variables out of the loop
     var items = document.getElementsByClassName('mover');
-    var scrollPizza = document.body.scrollTop / 1250;
-    var itemslenght = items.length;
     var i = 0;
+    var itemslenght = items.length;
+    var scrollPizza = document.body.scrollTop / 1250;
     var phase;
-   
+
 
     for (; i < itemslenght; i++) {
         phase = Math.sin(scrollPizza + (i % 5));
@@ -541,17 +555,21 @@ document.addEventListener('DOMContentLoaded', function () {
     var widthWindow = Math.floor(window.innerWidth / 73.333);
     var heightWindow = Math.floor(window.innerHeight / 100);
     var calculatePizzas = widthWindow + heightWindow;
+    //Declare var elem outside the loop
 
+    //change querySelector for getElementById
+    var elem;
+    var movingPizzas = document.getElementById('movingPizzas1');
     for (var i = 0; i < calculatePizzas; i++) {
-        var elem = document.createElement('img');
+        elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";
         elem.style.height = "100px";
         elem.style.width = "73.333px";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        //change querySelector for getElementById
-        document.getElementById("movingPizzas1").appendChild(elem);
+
+        movingPizzas.appendChild(elem);
     }
     updatePositions();
 });
