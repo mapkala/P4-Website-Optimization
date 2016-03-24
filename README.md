@@ -19,4 +19,4 @@ You can see the result [here](https://github.com/mapkala/P4-Website-Optimization
 
 - Change all the querySelector for getElementById or getElementsByClassName
 - In function updatePosition(), changePizzaSizes() remove and create variables out of the loop
-- Calculate size of the window so the browser paint only the pizzas that are needed
+- Calculate size of the window so the browser paint only the pizzas that are needed.
